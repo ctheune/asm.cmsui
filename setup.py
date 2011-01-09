@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 
 setup(name='asm.cmsui',
-      version='0.2dev',
+      version='0.1.1',
       description="Assembly CMS - CMS UI package",
       author="Webcrew",
       author_email="web@assembly.org",
