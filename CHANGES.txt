@@ -1,0 +1,14 @@
+Changes
+*******
+
+
+0.1.2 (unreleased)
+==================
+
+- More manifest issues. Ran a search on all suffixed and should have found all
+  now.
+
+0.1.1 (2011-01-09)
+==================
+
+- Add manifest file to include static files and remedy 0.1 brown bag release.
