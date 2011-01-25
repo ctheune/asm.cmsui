@@ -6,7 +6,7 @@ import grok
 import asm.cms.cms
 import asm.cmsui.interfaces
 import hurry.query.query
-
+import zope.index.text.parsetree
 
 class Search(megrok.pagelet.Pagelet):
 
@@ -16,8 +16,12 @@ class Search(megrok.pagelet.Pagelet):
 
     def update(self):
         self.keyword = q = self.request.form.get('q', '')
-        self.results = hurry.query.query.Query().searchResults(
-            hurry.query.Text(('edition_catalog', 'body'), q))
+        try:
+            self.results = hurry.query.query.Query().searchResults(
+                hurry.query.Text(('edition_catalog', 'body'), q))
+        except zope.index.text.parsetree.ParseError, e:
+            self.flash(e.message)
+            self.results = []
 
 
 class PublicSearch(megrok.pagelet.Pagelet):
@@ -28,8 +32,14 @@ class PublicSearch(megrok.pagelet.Pagelet):
 
     def update(self):
         self.keyword = q = self.request.form.get('q', '')
-        results = hurry.query.query.Query().searchResults(
-            hurry.query.Text(('edition_catalog', 'body'), q))
+
+        try:
+            results = hurry.query.query.Query().searchResults(
+                hurry.query.Text(('edition_catalog', 'body'), q))
+        except zope.index.text.parsetree.ParseError, e:
+            self.flash(e.message)
+            self.results = []
+            return
 
         self.results = []
         for result in results:
