@@ -62,7 +62,8 @@
             <form id="search" tal:attributes="action
                 string:${view/application_url}/@@search">
               <div>
-                <input type="text" name="q" class="search" title="Search all pages for occurrences of this string."/>
+                <input type="text" name="q" class="search" title="Search all pages for occurrences of this string."
+                       tal:attributes="value python: view.request.form.get('q', '')"/>
               </div>
             </form>
 
