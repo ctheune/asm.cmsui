@@ -7,6 +7,7 @@ import asm.cms.utils
 import asm.cmsui.base
 import asm.cmsui.form
 import asm.cmsui.interfaces
+import cgi
 import grok
 import magic
 import os
@@ -105,3 +106,40 @@ class Download(Index):
 
     def render(self, *args, **kw):
         return super(Download, self).render(*args, **kw)
+
+
+def searchable_text(asset):
+    result = asset.title + " "
+    tags = asset.tags.split(' ')
+    result += " ".join("tag:" + tag for tag in tags)
+    return result
+
+class TextIndexing(grok.Adapter):
+
+    zope.interface.implements(asm.cms.interfaces.ISearchableText)
+
+    def __init__(self, asset):
+        self.body = searchable_text(asset)
+
+class SearchPreview(grok.View):
+
+    def update(self, q):
+        self.keyword = q
+
+    def render(self):
+        # TODO this is a quite crude hack to enable search result display.
+        # It doesn't take into account different order of words or multiple
+        # words that are used in the query.
+
+        text = searchable_text(self.context)
+
+        focus = text.lower().find(self.keyword.lower())
+
+        if focus == -1:
+            return cgi.escape(text)
+
+        result = '<span class="match">%s</span>' % \
+            cgi.escape(text[focus:(focus + len(self.keyword))])
+
+        return result
+
