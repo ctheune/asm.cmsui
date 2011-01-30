@@ -110,8 +110,11 @@ class Download(Index):
 
 def searchable_text(asset):
     result = asset.title + " "
-    tags = asset.tags.split(' ')
-    result += " ".join("tag:" + tag for tag in tags)
+
+    if asset.tags is not None:
+        tags = asset.tags.split(' ')
+        result += " ".join("tag:" + tag for tag in tags)
+
     return result
 
 class TextIndexing(grok.Adapter):
