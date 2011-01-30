@@ -5,7 +5,14 @@ Changes
 0.1.4 (unreleased)
 ==================
 
-- Nothing changed yet.
+* Do not try to create search index from tags if their value is None.
+
+* Enable searching of assets by title and tags.
+
+* Handle at least one search error.
+
+* Show the keyword used for search in the search box after doing a search.
+
 
 
 0.1.3 (2011-01-09)
