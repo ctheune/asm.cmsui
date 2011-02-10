@@ -83,6 +83,14 @@ class ImagePicker(grok.View):
 class DownloadAction(grok.Viewlet):
     grok.viewletmanager(asm.cmsui.base.ExtendedPageActions)
 
+    @property
+    def applicable(self):
+        try:
+            self.context.content.committed()
+        except AttributeError:
+            return False
+        return True
+
 
 class Download(Index):
     """Adds headers that enable downloading of assets.
@@ -101,7 +109,6 @@ class Download(Index):
         self.response.setHeader("Content-Description", "File Transfer")
         filename = urllib.quote_plus(self.context.page.__name__)
         self.response.setHeader("Content-Disposition", "attachment; filename=%s" % filename)
-
         return super(Download, self).update(*args, **kw)
 
     def render(self, *args, **kw):
