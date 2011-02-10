@@ -72,9 +72,8 @@
         </div>
 
         <div id="actions" class="actionbar">
-            <tal:block replace="structure provider:main-page-actions"/>
-
-            <tal:block replace="structure provider:page-action-groups"/>
+          <tal:block replace="structure provider:main-page-actions"/>
+          <tal:block replace="structure provider:page-action-groups"/>
         </div>
 
         <div id="navigation-actions" class="actionbar">

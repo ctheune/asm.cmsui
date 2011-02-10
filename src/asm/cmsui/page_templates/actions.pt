@@ -6,7 +6,7 @@
         <li><input type="submit" value="Preview" class="button open-preview" title="Opens preview version of this page in a new window."/></li>
     </ul>
 
-    <ul class="expand">
+    <ul>
         <tal:block replace="structure provider:extended-page-actions"/>
     </ul>
     </form>
