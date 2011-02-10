@@ -2,7 +2,7 @@ Changes
 *******
 
 
-0.1.5 (unreleased)
+0.1.5 (2011-02-10)
 ==================
 
 - Review download button for assets and improve it: show without having to use
