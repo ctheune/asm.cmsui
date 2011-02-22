@@ -8,6 +8,8 @@ Changes
 - Add a visible button to the site tools that leads you to the form for
   selecting a site's profile.
 
+- Fix data import UI.
+
 
 0.1.5 (2011-02-10)
 ==================
