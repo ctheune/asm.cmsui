@@ -92,5 +92,12 @@
                 </div>
             </div>
         </div>
+
+        <div style="display:none">
+          <div id="confirm-deletion" title="Delete page?">
+            <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>The selected pages will be permanently deleted and cannot be recovered. Are you sure?</p>
+          </div>
+        </div>
+
     </body>
 </html>
