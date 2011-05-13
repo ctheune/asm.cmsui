@@ -23,7 +23,7 @@ class ReplaceSelenium(asm.cmsui.testing.SeleniumTestCase):
         s.click('css=#tools h3')
         s.clickAndWait('css=#search-and-replace')
         self.assertEquals(
-            'http://localhost:8087/++skin++cms/cms/@@searchandreplace',
+            'http://%s/++skin++cms/cms/@@searchandreplace' % s.server,
             s.getLocation())
         s.type('name=search', 'foo')
         s.type('name=replace', 'bar')
@@ -34,7 +34,7 @@ class ReplaceSelenium(asm.cmsui.testing.SeleniumTestCase):
 
         s.assertTextPresent('Replaced 1 occurrences.')
         self.assertEquals(
-            'http://localhost:8087/++skin++cms/cms/searchandreplace',
+            'http://%s/++skin++cms/cms/searchandreplace' % s.server,
             s.getLocation())
 
         transaction.begin()
