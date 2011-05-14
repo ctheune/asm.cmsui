@@ -2,7 +2,7 @@ Changes
 *******
 
 
-0.1.8 (unreleased)
+0.1.8 (2011-05-14)
 ==================
 
 - Implement infrastructure for multi-site search.
