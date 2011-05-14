@@ -1,4 +1,15 @@
 <div id="search-results">
+  <h2> Search results for &ldquo;<i tal:content="request/q">asdf</i>&rdquo;</h2>
+  <dl></dl>
+</div>
+<ul style="display: none" id="search-sites">
+  <li><a href="http://localhost:8081/++skin++winter11/secondsite/@@search.json">Second site</a></li>
+  <li><a href="http://localhost:8081/++skin++winter11/searchtest/@@search.json">Search test</a></li>
+</ul>
+<script tal:attributes="src context/@@layouthelper/static/search.js" type="text/javascript"></script>
+
+<!--
+<div id="search-results">
 
   <h2> Search results for &ldquo;<i tal:content="request/q">asdf</i>&rdquo;</h2>
 
@@ -26,3 +37,4 @@
   </tal:block>
 
 </div>
+-->

@@ -1,11 +1,13 @@
 # Copyright (c) 2010 gocept gmbh & co. kg
 # See also LICENSE.txt
 
-import megrok.pagelet
-import grok
 import asm.cms.cms
 import asm.cmsui.interfaces
+import grok
 import hurry.query.query
+import simplejson
+import megrok.pagelet
+import zope.component
 import zope.index.text.parsetree
 
 class Search(megrok.pagelet.Pagelet):
@@ -24,12 +26,7 @@ class Search(megrok.pagelet.Pagelet):
             self.results = []
 
 
-class PublicSearch(megrok.pagelet.Pagelet):
-
-    grok.context(asm.cms.interfaces.IEdition)
-    grok.layer(asm.cmsui.interfaces.IRetailSkin)
-    grok.name('search')
-
+class SearchBase(object):
     def update(self):
         self.keyword = q = self.request.form.get('q', '')
 
@@ -46,6 +43,44 @@ class PublicSearch(megrok.pagelet.Pagelet):
             if result is asm.cms.edition.select_edition(result.page, self.request):
                 self.results.append(result)
 
+
+class PublicSearch(SearchBase, megrok.pagelet.Pagelet):
+
+    grok.context(asm.cms.interfaces.IEdition)
+    grok.layer(asm.cmsui.interfaces.IRetailSkin)
+    grok.name('search')
+
+
+class PublicJsonSearch(SearchBase, grok.View):
+
+    grok.context(asm.cms.interfaces.IEdition)
+    grok.layer(asm.cmsui.interfaces.IRetailSkin)
+    grok.name('search.json')
+
+    def render(self):
+        output = []
+        for edition in self.results:
+            preview = ""
+            try:
+                view = zope.component.getMultiAdapter(
+                    (edition, self.request), name="searchpreview")
+                preview = view()
+            except LookupError:
+                pass
+
+            output.append({
+                    'title': edition.title,
+                    'url': self.url(edition),
+                    'content': preview,
+                    })
+
+        return simplejson.dumps(output)
+
+
+class SearchEmbed(megrok.pagelet.Pagelet):
+    grok.context(asm.cms.interfaces.IEdition)
+    grok.layer(asm.cmsui.interfaces.IRetailSkin)
+    grok.name('searchembed')
 
 class OSDDEdition(grok.View):
     grok.context(asm.cms.interfaces.IEdition)

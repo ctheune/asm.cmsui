@@ -44,7 +44,6 @@ class FileWithDisplayWidget(zope.app.form.browser.textwidgets.FileWidget):
             f.close()
         return value
 
-
 class Edit(asm.cmsui.form.EditionEditForm):
 
     grok.layer(asm.cmsui.interfaces.ICMSSkin)
