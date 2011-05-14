@@ -32,6 +32,8 @@ class PublicSearch(megrok.pagelet.Pagelet):
     grok.layer(asm.cmsui.interfaces.IRetailSkin)
     grok.name('search')
 
+    def sites(self):
+        return asm.cms.interfaces.ISearchSites(self.application).sites
 
 class PublicJsonSearch(grok.View):
 
@@ -92,3 +94,9 @@ class OSDDCMS(grok.View):
     def title(self):
         edition = asm.cms.edition.select_edition(self.context, self.request)
         return edition.title + u" CMS"
+
+
+class SelectSearchSites(asm.cmsui.form.EditForm):
+
+    form_fields = grok.AutoFields(asm.cms.interfaces.ISearchSites)
+    grok.context(asm.cms.cms.CMS)
