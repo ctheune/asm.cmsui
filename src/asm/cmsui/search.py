@@ -33,7 +33,7 @@ class PublicSearch(megrok.pagelet.Pagelet):
     grok.name('search')
 
 
-class PublicJsonSearch(SearchBase, grok.View):
+class PublicJsonSearch(grok.View):
 
     grok.context(asm.cms.interfaces.IEdition)
     grok.layer(asm.cmsui.interfaces.IRetailSkin)
