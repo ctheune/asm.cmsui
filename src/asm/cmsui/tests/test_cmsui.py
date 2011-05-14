@@ -15,7 +15,8 @@ class CMSUI(asm.cmsui.testing.SeleniumTestCase):
         self.selenium.open('http://mgr:mgrpw@%s/++skin++cms/cms' %
                            self.selenium.server)
         self.assertEquals(
-            u'http://localhost:8087/++skin++cms/cms/edition-/@@edit',
+            u'http://%s/++skin++cms/cms/edition-/@@edit' %
+                self.selenium.server,
             self.selenium.getLocation())
 
     def test_switch_to_navigation_and_back(self):
@@ -86,7 +87,7 @@ class CMSUI(asm.cmsui.testing.SeleniumTestCase):
         s.click('id=form.type.0') # News section
         s.clickAndWait('name=form.actions.change')
         self.assertEquals(
-            'http://localhost:8087/++skin++cms/cms/edition-/@@edit',
+            'http://%s/++skin++cms/cms/edition-/@@edit' % s.server,
             s.getLocation())
         transaction.begin()
         self.assertEquals('news', self.cms.type)
@@ -105,9 +106,11 @@ class CMSUI(asm.cmsui.testing.SeleniumTestCase):
         s.click('css=.toggle-navigation')
         s.waitForElementPresent('css=#%s a' % xy_id)
         s.click('css=#delete-page')
-        self.assertEquals(u'Delete page "A test page"?',
-                          s.selenium.get_confirmation())
-        transaction.abort()
+        s.waitForVisible('css=#confirm-deletion')
+        # XXX I'm waiting for this to break ...
+        s.click('css=.ui-dialog-buttonpane button')
+        s.waitForElementNotPresent('css=#%s a' % xy_id)
+        transaction.begin()
         self.assertRaises(KeyError, self.cms.__getitem__, 'xy')
 
     def test_cant_delete_root(self):

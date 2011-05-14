@@ -10,7 +10,8 @@
             </a>
             <span tal:content="result/parameters/@@index"/>
 
-            <div class="preview" tal:content="structure result/@@searchpreview"/>
+              <div class="preview" tal:content="structure result/@@searchpreview|nothing"/>
+
         </li>
     </ul>
     <p tal:condition="not:results">

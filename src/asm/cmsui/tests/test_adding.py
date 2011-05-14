@@ -16,7 +16,7 @@ class Adding(asm.cmsui.testing.SeleniumTestCase):
         s.type('css=form[id="addpage"] input[name="title"]', 'A test')
         s.clickAndWait('css=#add-page')
         self.assertEquals(
-            u'http://localhost:8087/++skin++cms/cms/a-test/edition-/@@edit',
+            u'http://%s/++skin++cms/cms/a-test/edition-/@@edit' % s.server,
             s.getLocation())
         transaction.begin()
         test = self.getRootFolder()['cms']['a-test']

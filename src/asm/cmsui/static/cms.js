@@ -237,20 +237,27 @@ function arrays_intersect(first, second) {
 function delete_page() {
     var tree = $.jstree._reference('#navigation-tree');
     var target_nodes = tree.get_selected();
+    var self = this;
 
     // TODO if branch is closed, then deletion does not show its children.
-    // but if it's open, then chidren's names are show in target.text().
-    if (!confirm('Delete page "' + $.trim(target_nodes.text()) +'"?')) {
-        return false;
-    }
-
-    var target_ids = $(target_nodes).map(function() { return $(this).attr('id'); }).get();
-
-    $.post(
-        application_view('delete'),
-        {ids: target_ids.join(","), current_page_id: current_page_id()},
-        handle_page_deletion
-    );
+    // but if it's open, then childrens' names are show in target.text().
+    $('#confirm-deletion').dialog({
+        resizable: false,
+        height: 200,
+        modal: true,
+        buttons: {
+            "Delete": function() {
+                var target_ids = $(target_nodes).map(function() { return $(this).attr('id'); }).get();
+                $.post(
+                    application_view('delete'),
+                    {ids: target_ids.join(","), current_page_id: current_page_id()},
+                    handle_page_deletion
+                );
+                $(this).dialog("close");
+            },
+            "Cancel": function() {
+                $(this).dialog("close");
+            }}});
     return false;
 }
 
