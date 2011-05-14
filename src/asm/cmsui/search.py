@@ -26,7 +26,19 @@ class Search(megrok.pagelet.Pagelet):
             self.results = []
 
 
-class SearchBase(object):
+class PublicSearch(megrok.pagelet.Pagelet):
+
+    grok.context(asm.cms.interfaces.IEdition)
+    grok.layer(asm.cmsui.interfaces.IRetailSkin)
+    grok.name('search')
+
+
+class PublicJsonSearch(SearchBase, grok.View):
+
+    grok.context(asm.cms.interfaces.IEdition)
+    grok.layer(asm.cmsui.interfaces.IRetailSkin)
+    grok.name('search.json')
+
     def update(self):
         self.keyword = q = self.request.form.get('q', '')
 
@@ -42,20 +54,6 @@ class SearchBase(object):
         for result in results:
             if result is asm.cms.edition.select_edition(result.page, self.request):
                 self.results.append(result)
-
-
-class PublicSearch(SearchBase, megrok.pagelet.Pagelet):
-
-    grok.context(asm.cms.interfaces.IEdition)
-    grok.layer(asm.cmsui.interfaces.IRetailSkin)
-    grok.name('search')
-
-
-class PublicJsonSearch(SearchBase, grok.View):
-
-    grok.context(asm.cms.interfaces.IEdition)
-    grok.layer(asm.cmsui.interfaces.IRetailSkin)
-    grok.name('search.json')
 
     def render(self):
         output = []
@@ -76,11 +74,6 @@ class PublicJsonSearch(SearchBase, grok.View):
 
         return simplejson.dumps(output)
 
-
-class SearchEmbed(megrok.pagelet.Pagelet):
-    grok.context(asm.cms.interfaces.IEdition)
-    grok.layer(asm.cmsui.interfaces.IRetailSkin)
-    grok.name('searchembed')
 
 class OSDDEdition(grok.View):
     grok.context(asm.cms.interfaces.IEdition)
