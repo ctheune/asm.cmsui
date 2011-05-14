@@ -2,8 +2,25 @@ Changes
 *******
 
 
-0.1.6 (unreleased)
+0.1.8 (unreleased)
 ==================
+
+- Nothing changed yet.
+
+
+0.1.7 (2011-05-13)
+==================
+
+- Harden search results: do not break if no preview snippet exists.
+
+- Fix tests for Firefox 4 and Selenium 2.
+
+
+0.1.6 (2011-02-22)
+==================
+
+- Add a visible button to the site tools that leads you to the form for
+  selecting a site's profile.
 
 - Fix data import UI.
 
