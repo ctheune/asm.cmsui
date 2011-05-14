@@ -5,7 +5,7 @@ Changes
 0.1.8 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Implement infrastructure for multi-site search.
 
 
 0.1.7 (2011-05-13)
