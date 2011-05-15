@@ -1,5 +1,7 @@
 <html>
     <head>
+        <script type="text/javascript"
+            tal:attributes="src view/static/tinymce/tiny_mce_popup.js" ></script >
         <script language="JavaScript">
             function insertURL(a) {
                 var win = tinyMCEPopup.getWindowArg('window');
