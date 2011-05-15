@@ -7,6 +7,9 @@ Changes
 
 - Improve how search is done and how results are displayed.
 
+- Remove dependency to hurry.resource and hurry.tinymce
+  in order to use a statically copied and updated version.
+
 
 0.1.9 (2011-05-14)
 ==================
