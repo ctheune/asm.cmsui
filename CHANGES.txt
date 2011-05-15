@@ -2,7 +2,7 @@ Changes
 *******
 
 
-0.1.10 (unreleased)
+0.1.10 (2011-05-15)
 ===================
 
 - Improve how search is done and how results are displayed.
