@@ -5,7 +5,7 @@ Changes
 0.1.11 (unreleased)
 ===================
 
-- Nothing changed yet.
+- Fix manifest file to include .htm files (tinymce)
 
 
 0.1.10 (2011-05-15)
