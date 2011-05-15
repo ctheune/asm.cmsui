@@ -4,16 +4,19 @@ This search uses Javascript to aggregate results from multiple sites. Results fo
 </p>
 <ul>
   <li tal:repeat="site view/sites">
-    <a tal:attributes="href site" tal:content="site">http://somesite/</a>
+    <a tal:attributes="href string:${site}/@@search?q=${view/request/form/q}"
+       tal:content="string:${site}/@@search?q=${view/request/form/q}">http://somesite/</a>
   </li>
 </ul>
 </noscript>
 
+<ul style="display: none" id="search-sites">
+  <li tal:repeat="site view/sites"><a tal:attributes="href site"></a></li>
+</ul>
+
 <div id="search-results">
   <h2>Search results for &ldquo;<i tal:content="request/q">asdf</i>&rdquo;</h2>
-  <dl></dl>
 
-<noscript>
   <tal:block tal:define="results view/results">
   <dl tal:condition="results">
     <tal:block tal:repeat="result results">
@@ -36,12 +39,9 @@ This search uses Javascript to aggregate results from multiple sites. Results fo
   No results found.
   </p>
   </tal:block>
-</noscript>
+
+  <dl class="external-results"></dl>
 
 </div>
 
-<ul style="display: none" id="search-sites">
-  <li><a tal:attributes="href string:${view/application_url}/@@search.json" tal:content="view/cms_edition/title">Second site</a></li>
-  <li tal:repeat="site view/sites"><a tal:attributes="href site"></a></li>
-</ul>
 <script tal:attributes="src context/@@publiclayouthelper/static/search.js" type="text/javascript"></script>
