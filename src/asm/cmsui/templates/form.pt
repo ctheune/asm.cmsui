@@ -67,3 +67,9 @@
     </div>
 </div>
 </tal:block>
+
+<!-- always include tinymce. this is stupid, but omfg, prepackaged stuff, too. -->
+<script type="text/javascript"
+    tal:attributes="src view/static/tinymce/tiny_mce.js" ></script >
+<script type="text/javascript"
+    tal:attributes="src view/static/tinymce_widget.js" ></script >
