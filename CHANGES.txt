@@ -5,7 +5,7 @@ Changes
 0.1.10 (unreleased)
 ===================
 
-- Nothing changed yet.
+- Improve how search is done and how results are displayed.
 
 
 0.1.9 (2011-05-14)
