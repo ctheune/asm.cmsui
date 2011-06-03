@@ -67,7 +67,7 @@
               </div>
             </form>
 
-            <button class="button toggle-navigation" title="Display navigation tree.">Navigation</button>
+            <button class="button toggle-navigation" title="Display navigation tree. (Esc)">Navigation</button>
 
         </div>
 
