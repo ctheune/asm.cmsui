@@ -5,7 +5,7 @@ Changes
 0.1.12 (unreleased)
 ===================
 
-- Nothing changed yet.
+- Fix TinyMCE Javascript includes so that they won't break adding new sites.
 
 
 0.1.11 (2011-05-15)
