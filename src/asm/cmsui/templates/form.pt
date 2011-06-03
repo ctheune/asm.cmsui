@@ -69,7 +69,5 @@
 </tal:block>
 
 <!-- always include tinymce. this is stupid, but omfg, prepackaged stuff, too. -->
-<script type="text/javascript"
-    tal:attributes="src string:/@@/asm.cmsui/tinymce/tiny_mce.js" ></script >
-<script type="text/javascript"
-    tal:attributes="src string:/@@/asm.cmsui/tinymce_widget.js" ></script >
+<script type="text/javascript" src="/@@/asm.cmsui/tinymce/tiny_mce.js"></script>
+<script type="text/javascript" src="/@@/asm.cmsui/tinymce_widget.js"></script>
