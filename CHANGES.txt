@@ -6,6 +6,8 @@ Changes
 ===================
 
 - Fix TinyMCE Javascript includes so that they won't break adding new sites.
+- Reverse display order of news.
+- Add support for redirection types.
 
 
 0.1.11 (2011-05-15)
