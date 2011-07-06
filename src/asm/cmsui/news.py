@@ -18,7 +18,7 @@ class Edit(asm.cmsui.form.EditForm):
 class Index(asm.cmsui.retail.Pagelet):
 
     def list(self):
-        for news in reversed(self.context.list()):
+        for news in reversed(list(self.context.list())):
             edition = asm.cms.edition.select_edition(news, self.request)
             if isinstance(edition, asm.cms.edition.NullEdition):
                 continue
