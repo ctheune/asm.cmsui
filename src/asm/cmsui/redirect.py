@@ -33,7 +33,7 @@ class Index(grok.View):
 class RedirectAbsoluteUrl(grok.MultiAdapter):
     grok.adapts(
         asm.cms.interfaces.IRedirect,
-        zope.publisher.interfaces.browser.IBrowserRequest)
+        asm.cmsui.interfaces.IRetailSkin)
     grok.implements(zope.traversing.browser.interfaces.IAbsoluteURL)
 
     def __init__(self, context, request):
@@ -41,17 +41,4 @@ class RedirectAbsoluteUrl(grok.MultiAdapter):
         self.request = request
 
     def __call__(self):
-        # XXX this is quite a hack but gets us what we want.
-        # Namely we don't want to show the absolute URL in cmsui so that
-        # we can actually click links to modify this object.
-        if asm.cmsui.interfaces.ICMSSkin.providedBy(self.request):
-            edition = asm.cms.edition.Edition()
-            edition.title = self.context.title
-            edition.tags = self.context.tags
-            edition.__parent__ = self.context.__parent__
-            edition.__name__ = self.context.__name__
-            adapter =  zope.component.getMultiAdapter(
-                (edition, self.request),
-                zope.traversing.browser.interfaces.IAbsoluteURL)
-            return adapter()
         return self.context.target_url
