@@ -15,7 +15,7 @@ This search uses Javascript to aggregate results from multiple sites. Results fo
 </ul>
 
 <div id="search-results">
-  <h2>Search results for &ldquo;<i tal:content="request/q">asdf</i>&rdquo;</h2>
+  <h2>Search results for &ldquo;<i tal:content="request/q|nothing">asdf</i>&rdquo;</h2>
 
   <tal:block tal:define="results view/results">
   <dl tal:condition="results">
