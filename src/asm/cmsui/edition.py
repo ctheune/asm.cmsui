@@ -63,6 +63,18 @@ class NullIndex(megrok.pagelet.Pagelet):
     def render(self):
         return 'No edition available.'
 
+
+class EditionIndex(megrok.pagelet.Pagelet):
+
+    grok.layer(asm.cmsui.interfaces.ICMSSkin)
+    grok.require('asm.cms.EditContent')
+    grok.name('index')
+    grok.context(asm.cms.interfaces.IEdition)
+
+    def render(self):
+        self.redirect(self.url(self.context, '@@edit'))
+
+
 class DisplayParameters(grok.View):
     grok.context(asm.cms.edition.EditionParameters)
     grok.name('index')
