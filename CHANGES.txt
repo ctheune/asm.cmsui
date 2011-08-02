@@ -1,13 +1,14 @@
 Changes
 *******
 
-
 0.1.12 (unreleased)
 ===================
 
 - Fix TinyMCE Javascript includes so that they won't break adding new sites.
 - Reverse display order of news.
 - Add support for redirection types.
+- Add redirecting default view for editions in the CMS ui to support some UX
+  annoyances.
 
 
 0.1.11 (2011-05-15)
