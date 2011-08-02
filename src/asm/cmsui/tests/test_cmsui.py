@@ -84,13 +84,13 @@ class CMSUI(asm.cmsui.testing.SeleniumTestCase):
         s.click('//h3[contains(text(), "Page")]/following-sibling::div[@class="opener"]')
         s.assertVisible('xpath=//input[@value="Change page type"]')
         s.clickAndWait('xpath=//input[@value="Change page type"]')
-        s.click('id=form.type.0') # News section
+        s.click('id=form.type.0') # Redirect section
         s.clickAndWait('name=form.actions.change')
         self.assertEquals(
             'http://%s/++skin++cms/cms/edition-/@@edit' % s.server,
             s.getLocation())
         transaction.begin()
-        self.assertEquals('news', self.cms.type)
+        self.assertEquals('redirect', self.cms.type)
 
     def test_delete_page(self):
         s = self.selenium
