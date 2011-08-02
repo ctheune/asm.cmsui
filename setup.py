@@ -37,6 +37,7 @@ setup(name='asm.cmsui',
                         'zope.event',
                         'zope.interface',
                         'zope.intid',
+                        'zope.testbrowser',
                         'zope.lifecycleevent',
                         'zope.security',
                         'zope.traversing'])
