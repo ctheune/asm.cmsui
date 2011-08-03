@@ -69,6 +69,10 @@ $(document).ready(function(){
     $('#delete-page').click(delete_page);
 
     $('.expandable .error').each(expand_section);
+
+    if (window.location.hash == "#show-navigation") {
+        show_navigation();
+    }
 });
 
 function tree_check_move_not_outside_root(move) {
