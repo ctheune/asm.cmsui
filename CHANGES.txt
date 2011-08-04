@@ -5,7 +5,7 @@ Changes
 ===================
 
 - Enable opening the navigation tree with hash parameters.
-
+- Fix some server errors happening from unexpected layout helpers.
 
 0.1.12 (2011-08-02)
 ===================
