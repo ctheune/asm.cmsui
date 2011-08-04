@@ -4,7 +4,7 @@ Changes
 0.1.13 (unreleased)
 ===================
 
-- Nothing changed yet.
+- Enable opening the navigation tree with hash parameters.
 
 
 0.1.12 (2011-08-02)
