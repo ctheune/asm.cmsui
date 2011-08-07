@@ -4,7 +4,7 @@ Changes
 0.1.14 (unreleased)
 ===================
 
-- Nothing changed yet.
+- Try making it more clear what you are editing with the rename action.
 
 
 0.1.13 (2011-08-04)
