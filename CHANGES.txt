@@ -4,6 +4,8 @@ Changes
 0.1.15 (unreleased)
 ===================
 
+- Provide distinguishable icon for redirects.
+
 - Bugfix: remove the page URL name from the tree when selecting a different
   node.
 
