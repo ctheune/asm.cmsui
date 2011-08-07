@@ -140,8 +140,9 @@ function tree_show_rename_icon(tree, node) {
     }
     var renamed = $(node).children(".rename-page");
     if (renamed.length == 0) {
-        id = $(node).attr("id");
-        var rename_node = "<a class='rename-page' href='#" + id + "' onclick='tree_rename_node(this)' title='Rename the page name that is visible in URLs.'>&nbsp;</a>";
+        var id = $(node).attr("id");
+        var name = $(node).children("a").first().attr('page_name')
+        var rename_node = "<span class='rename-label'>("+name+")</span><a class='rename-page' href='#" + id + "' onclick='tree_rename_node(this)' title='Rename the page name that is visible in URLs.'>&nbsp;</a>";
         var links = $(node).find("a");
         var anchor = links.first().after(rename_node);
     }
