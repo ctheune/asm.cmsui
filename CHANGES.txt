@@ -4,7 +4,8 @@ Changes
 0.1.15 (unreleased)
 ===================
 
-- Nothing changed yet.
+- Bugfix: remove the page URL name from the tree when selecting a different
+  node.
 
 
 0.1.14 (2011-08-07)

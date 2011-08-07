@@ -152,6 +152,7 @@ function tree_show_rename_icon(tree, node) {
 function tree_hide_rename_icon(tree, node) {
     if (!tree.is_selected(node)) {
         $(node).find(".rename-page").remove();
+        $(node).find(".rename-label").remove();
     }
 }
 
