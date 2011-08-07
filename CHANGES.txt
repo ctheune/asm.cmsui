@@ -1,7 +1,7 @@
 Changes
 *******
 
-0.1.14 (unreleased)
+0.1.14 (2011-08-07)
 ===================
 
 - Try making it more clear what you are editing with the rename action.
