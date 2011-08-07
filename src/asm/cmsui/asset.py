@@ -16,6 +16,7 @@ import zope.app.form.browser.textwidgets
 
 grok.context(asm.cms.asset.Asset)
 
+
 class FileWithDisplayWidget(zope.app.form.browser.textwidgets.FileWidget):
 
     def __call__(self):
@@ -51,7 +52,6 @@ class Edit(asm.cmsui.form.EditionEditForm):
 
     main_fields = grok.AutoFields(asm.cms.asset.Asset).select(
         'title', 'content')
-    main_fields['content'].custom_widget = FileWithDisplayWidget
 
 
 class Index(grok.View):
