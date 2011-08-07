@@ -22,4 +22,11 @@
       factory=".retail.RootTraverse"
       />
 
+  <view
+    type="zope.publisher.interfaces.browser.IBrowserRequest"
+    for="asm.cms.interfaces.Blob"
+    provides="zope.app.form.interfaces.IInputWidget"
+    factory=".asset.FileWithDisplayWidget"
+    />
+
 </configure>

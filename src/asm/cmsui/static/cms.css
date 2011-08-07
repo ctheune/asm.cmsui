@@ -365,6 +365,11 @@ input.search {
     font-weight: normal;
 }
 
+span.rename-label {
+    color: grey;
+    font-size:80%;
+}
+
 .rename-page {
     width: 16px;
     background: transparent url(/@@/asm.cmsui/icons/pencil.png) center center no-repeat !important;

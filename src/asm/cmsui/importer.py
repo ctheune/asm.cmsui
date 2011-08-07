@@ -36,3 +36,6 @@ class Import(asm.cmsui.form.Form):
             self.flash(u"Too many errors detected. Displaying the first %d errors." % self.display_max_errors)
         for error in errors[:self.display_max_errors]:
             self.flash(error, "warning")
+
+        if len(errors) == 0:
+            self.flash('Imported content successfully.')

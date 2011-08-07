@@ -1,7 +1,19 @@
 Changes
 *******
 
-0.1.13 (unreleased)
+0.1.15 (unreleased)
+===================
+
+- Nothing changed yet.
+
+
+0.1.14 (2011-08-07)
+===================
+
+- Try making it more clear what you are editing with the rename action.
+
+
+0.1.13 (2011-08-04)
 ===================
 
 - Enable opening the navigation tree with hash parameters.
