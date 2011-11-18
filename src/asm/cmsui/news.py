@@ -12,7 +12,7 @@ grok.context(asm.cms.news.NewsFolder)
 class Edit(asm.cmsui.form.EditForm):
 
     form_fields = grok.AutoFields(asm.cms.interfaces.IEdition).select(
-        'title')
+        'title', 'tags')
 
 
 class Index(asm.cmsui.retail.Pagelet):
