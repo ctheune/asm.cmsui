@@ -1,10 +1,19 @@
 Changes
 *******
 
-0.1.15 (unreleased)
+0.1.16 (unreleased)
 ===================
 
 - Nothing changed yet.
+
+
+0.1.15 (2011-08-07)
+===================
+
+- Provide distinguishable icon for redirects.
+
+- Bugfix: remove the page URL name from the tree when selecting a different
+  node.
 
 
 0.1.14 (2011-08-07)

@@ -55,7 +55,8 @@ $(document).ready(function(){
                 news: { icon:  { image: root+'/@@/asm.cmsui/icons/newspaper.png'}},
                 sponsorsarea: { icon:  { image: root+'/@@/asm.cmsui/icons/page_white_medal.png'}},
                 asset: { icon:  { image: root+'/@@/asm.cmsui/icons/page_white_picture.png'}},
-                programsection: { icon:  { image: root+'/@@/asm.cmsui/icons/film.png'}}
+                programsection: { icon:  { image: root+'/@@/asm.cmsui/icons/film.png'}},
+                redirect: { icon:  { image: root+'/@@/asm.cmsui/icons/link_go.png'}},
             }
         },
         crrm: { move: { check_move: tree_check_move_not_outside_root } }
@@ -152,6 +153,7 @@ function tree_show_rename_icon(tree, node) {
 function tree_hide_rename_icon(tree, node) {
     if (!tree.is_selected(node)) {
         $(node).find(".rename-page").remove();
+        $(node).find(".rename-label").remove();
     }
 }
 
