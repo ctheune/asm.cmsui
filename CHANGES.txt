@@ -4,7 +4,7 @@ Changes
 0.1.15 (unreleased)
 ===================
 
-- Nothing changed yet.
+- Add custom style selector for TinyMCE and introduce "teaser image".
 
 
 0.1.14 (2011-08-07)
