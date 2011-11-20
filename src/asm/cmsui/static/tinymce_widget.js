@@ -7,7 +7,7 @@ tinyMCE.init({
     theme: 'advanced',
     theme_advanced_toolbar_location : 'top',
     theme_advanced_toolbar_align : 'left',
-    theme_advanced_buttons1: "formatselect,|,bold,italic,strikethrough,|,justifyleft,justifycenter,justifyright,|,bullist,numlist,table,indent,outdent,|,link,anchor,unlink,image,|,code,fullscreen",
+    theme_advanced_buttons1: "formatselect,styleselect,|,bold,italic,strikethrough,|,justifyleft,justifycenter,justifyright,|,bullist,numlist,table,indent,outdent,|,link,anchor,unlink,image,|,code,fullscreen",
     theme_advanced_buttons2: "",
     theme_advanced_buttons3: "",
 
@@ -18,6 +18,10 @@ tinyMCE.init({
     dialog_type : 'modal',
 
     file_browser_callback: 'asmcmsFileBrowser',
+
+    style_formats: {
+        teaserimage: {title: 'Teaser image', selector : 'img', classes : 'teaser'},
+    },
 
     document_base_url: document.baseURI,
 
