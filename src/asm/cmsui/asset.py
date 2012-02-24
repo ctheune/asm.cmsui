@@ -23,13 +23,16 @@ class FileWithDisplayWidget(zope.app.form.browser.textwidgets.FileWidget):
         html = super(FileWithDisplayWidget, self).__call__()
         field = self.context
         asset = field.context
-        blob = field.get(asset)
+
+        if asset.content_type is None:
+            return html
+        if not asset.content_type.startswith("image/"):
+            return html
+
+        image_datauri = asm.cms.interfaces.IDataUri(asset).datauri
         img = ''
-        if blob is not None:
-            data = blob.open().read()
-            if data:
-                img = ('<br/><img src="data:%s;base64,%s"/>' %
-                       (magic.whatis(data), data.encode('base64')))
+        if image_datauri:
+            img = ('<br/><img src="%s"/>' % image_datauri)
         return (html + img)
 
     def _toFieldValue(self, input):
@@ -151,4 +154,3 @@ class SearchPreview(grok.View):
             cgi.escape(text[focus:(focus + len(self.keyword))])
 
         return result
-
