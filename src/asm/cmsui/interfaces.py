@@ -14,5 +14,5 @@ class IRetailBaseSkin(grok.IDefaultBrowserLayer):
     grok.skin('retailbase')
 
 
-class IRetailSkin(grok.IDefaultBrowserLayer):
+class IRetailSkin(IRetailBaseSkin):
     grok.skin('retail')
