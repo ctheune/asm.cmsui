@@ -21,6 +21,9 @@ class FileWithDisplayWidget(zope.app.form.browser.textwidgets.FileWidget):
 
     def __call__(self):
         html = super(FileWithDisplayWidget, self).__call__()
+        # XXX news stories have teaser images where this breaks. This is a hack
+        # to get around that ASAP.
+        return html
         field = self.context
         asset = field.context
 
