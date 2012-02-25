@@ -6,7 +6,7 @@
   <grok:grok package="."/>
 
   <browser:view
-      layer=".interfaces.IRetailSkin"
+      layer=".interfaces.IRetailBaseSkin"
       name=""
       class="zope.app.publisher.browser.resources.Resources"
       for="asm.cms.interfaces.IEdition"
@@ -17,7 +17,7 @@
   <adapter
       name=""
       for="zope.app.folder.interfaces.IRootFolder
-           .interfaces.IRetailSkin"
+           .interfaces.IRetailBaseSkin"
       provides="zope.publisher.interfaces.browser.IBrowserPublisher"
       factory=".retail.RootTraverse"
       />

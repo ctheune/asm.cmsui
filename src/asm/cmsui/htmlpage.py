@@ -30,6 +30,7 @@ class Edit(asm.cmsui.form.EditionEditForm):
         self.content = asm.cms.htmlpage.fix_relative_links(
             self.context.content, self.url(self.context))
 
+
 class SearchPreview(grok.View):
 
     PREVIEW_AMOUNT = 50

@@ -33,7 +33,7 @@ class Index(grok.View):
 class RedirectAbsoluteUrl(grok.MultiAdapter):
     grok.adapts(
         asm.cms.interfaces.IRedirect,
-        asm.cmsui.interfaces.IRetailSkin)
+        asm.cmsui.interfaces.IRetailBaseSkin)
     grok.implements(zope.traversing.browser.interfaces.IAbsoluteURL)
 
     def __init__(self, context, request):
