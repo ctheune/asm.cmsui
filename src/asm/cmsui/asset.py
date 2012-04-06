@@ -121,6 +121,9 @@ class Download(Index):
 
 
 def searchable_text(asset):
+    if asset.tags is not None and "hide-search" in asset.tags:
+        return ""
+
     result = asset.title + " "
 
     if asset.tags is not None:
