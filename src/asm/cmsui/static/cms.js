@@ -397,17 +397,24 @@ function toggle_tag() {
 }
 
 function check_links() {
-    function check_link(a, cb) {
+    function check_link(a, broken_count_callback) {
         $.ajax({
             timeout: 3000,
+            statusCode: {
+                404: function() {
+                    broken_count_callback(true);
+                },
+                500: function() {
+                    broken_count_callback(true);
+                }},
             type: 'HEAD',
             url: a.href
         }).success(function() {
-            cb(false);
+            broken_count_callback(false);
         }).fail(function() {
-            // This might catch too much. Besides 404 and 500 pages this
-            // will also catch timeouts.
-            cb(true);
+            // Other fail cases, like anchor links, will result in this call
+            // Don't mark them broken.
+            broken_count_callback(false);
         });
     };
 
@@ -425,23 +432,35 @@ function check_links() {
 
     var links = $('a', $(contentBodies))
         .removeClass('link-broken')
-        .not('[href^="javascript"],[href^="http"]')
+        .not('[href^="http"],[href^="#"]')
         .toArray();
 
-    var not_checked_links_count = $('a', $(contentBodies))
-        .filter('[href^="javascript"],[href^="http"]').length;
+    var not_checked_external_links_count = $('a', $(contentBodies))
+        .filter('[href^="http"]').length;
 
-    if (not_checked_links_count > 0) {
-        var external_check_message = 'There are ' + not_checked_links_count + " external links that were not checked.";
-        if (not_checked_links_count == 1) {
-            external_check_message = 'There is ' + not_checked_links_count + " external link that was not checked.";
+    if (not_checked_external_links_count > 0) {
+        var external_check_message = 'There are ' + not_checked_external_links_count + " external links that were not checked.";
+        if (not_checked_external_links_count == 1) {
+            external_check_message = 'There is ' + not_checked_external_links_count + " external link that was not checked.";
         }
         $('<li>').html(external_check_message).appendTo(messages);
+
+    }
+
+    var not_checked_anchor_links_count = $('a', $(contentBodies))
+        .filter('[href^="#"]').length;
+    if (not_checked_anchor_links_count > 0) {
+        var anchor_check_message = 'There are ' + not_checked_anchor_links_count + " current page anchor links that were not checked.";
+        if (not_checked_anchor_links_count == 1) {
+            anchor_check_message = 'There is ' + not_checked_anchor_links_count + " current page anchor link that was not checked.";
+        }
+        $('<li>').html(anchor_check_message).appendTo(messages);
+
     }
 
     if (links.length == 0) {
         $('<li class="progress-state">').html("There are no internal links on this page to check for.").appendTo(messages);
-        messages.delay(6000).slideUp(1000);
+        messages.delay(7000).slideUp(1000);
     } else {
         var link_count_message = "Checking for " + links.length + " internal links if they are broken.";
         if (links.length == 1) {
