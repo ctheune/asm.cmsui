@@ -62,3 +62,6 @@ class SearchPreview(grok.View):
             tuple(map(cgi.escape, [pre, keyword, post]))
         return text
 
+class ExtendedPageActions(grok.Viewlet):
+
+    grok.viewletmanager(asm.cmsui.base.ExtendedPageActions)

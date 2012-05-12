@@ -76,6 +76,11 @@ $(document).ready(function(){
     }
 
     $('input[name="form.tags"]').each(setup_tag_widget);
+    
+    $('#link-checker').click(function (event) {
+        event.preventDefault();
+        check_links();
+    });
 });
 
 function tree_check_move_not_outside_root(move) {
@@ -389,4 +394,26 @@ function toggle_tag() {
         new_tags.push(tag);
     }
     widget.attr('value', new_tags.join(' '));
+}
+
+function check_links() {
+    function check_url(url, cb) {
+      try {
+        $.ajax({
+          timeout: 2000,
+          statusCode: {404: cb},
+          type: 'HEAD',
+          url: url
+        });
+      } catch (e) { console.error('AJAX Failed: ' + url); }
+    }
+
+    var page = tinyMCE.activeEditor.getBody();
+    $('a', page).not('[href^="javascript"],[href^="http"]').each(function (i, a) {
+        var $a = $(a).removeClass('link-broken');
+        check_url(a.href, function () {
+          $a.addClass('link-broken');
+        });
+    });
+
 }
