@@ -8,9 +8,15 @@ import grok
 
 class TinyMCEWidget(zope.app.form.browser.textwidgets.TextAreaWidget):
 
+    mce_class = 'mceEditor'
+
     def __call__(self):
-        self.cssClass += ' mceEditor'
+        self.cssClass += ' %s' % self.mce_class
         return super(TinyMCEWidget, self).__call__()
+
+class TinyMCEWidgetSmall(TinyMCEWidget):
+
+    mce_class = 'mceEditorSmall'
 
 
 class TinyMCELinkBrowser(grok.View):
