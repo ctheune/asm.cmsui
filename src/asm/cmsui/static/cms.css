@@ -227,6 +227,7 @@ input.close-navigation, input.open-navigation {
 #content .section.expandable {
     border:1px solid #ccc;
     margin:0;
+    margin-top:1em;
     padding:0;
 }
 

@@ -31,6 +31,33 @@ tinyMCE.init({
     gecko_spellcheck : true
 });
 
+tinyMCE.init({
+    mode: 'specific_textareas',
+    editor_selector: 'mceEditorSmall',
+
+    plugins : 'advlink,contextmenu',
+
+    theme: 'advanced',
+    theme_advanced_toolbar_location : 'top',
+    theme_advanced_toolbar_align : 'left',
+    theme_advanced_buttons1: "formatselect,styleselect,|,bold,italic,strikethrough,|,link,anchor,unlink,|,code",
+    theme_advanced_buttons2: "",
+    theme_advanced_buttons3: "",
+
+    theme_advanced_blockformats: "p",
+
+    content_css : $('link[rel="root"]').attr('href') + '/@@/asm.cmsui/tinymce_content.css',
+
+    dialog_type : 'modal',
+
+    document_base_url: document.baseURI,
+
+    width: "100%",
+    height: 100,
+
+    gecko_spellcheck : true
+});
+
 
 function asmcmsFileBrowser(field_name, url, type, win) {
     tinyMCE.activeEditor.windowManager.open({
