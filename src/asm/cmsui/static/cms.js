@@ -397,22 +397,36 @@ function toggle_tag() {
 }
 
 function check_links() {
-    function check_url(url, cb) {
-      try {
-        $.ajax({
-          timeout: 2000,
-          statusCode: {404: cb},
-          type: 'HEAD',
-          url: url
-        });
-      } catch (e) { console.error('AJAX Failed: ' + url); }
-    }
-
-    var page = tinyMCE.activeEditor.getBody();
-    $('a', page).not('[href^="javascript"],[href^="http"]').each(function (i, a) {
-        var $a = $(a).removeClass('link-broken');
-        check_url(a.href, function () {
-            $a.addClass('link-broken');
-        });
+  function check_link(a, cb) {
+    $.ajax({
+      timeout: 2000,
+      statusCode: {404: function() {
+        cb(true);
+      }},
+      type: 'HEAD',
+      url: a.href
+    }).success(function () {
+      cb(false);
     });
+  }
+
+  function check_done(results) {
+    var count = results.length, msg;
+    $(results).addClass('link-broken');
+    var msgs = $('<ul class="messages section">').prependTo('#content');
+    if (count > 0) {
+      msg  = $('<li class="warning">').hide().html('Found <b>' + count + '</b> broken links! :(').appendTo(msgs);
+    } else {
+      msg  = $('<li class="success">').hide().html('Great! No broken links found.').appendTo(msgs);
+    }
+    msg.slideDown(300).delay(6000).slideUp(1000);
+  }
+
+  var links = $('a', tinyMCE.activeEditor.getBody())
+    .removeClass('link-broken')
+    .not('[href^="javascript"],[href^="http"]')
+    .toArray();
+
+  async.filter(links, check_link, check_done);
 }
+
