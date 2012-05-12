@@ -323,6 +323,12 @@ ul.messages li.warning {
     color:#333;
 }
 
+ul.messages li.success {
+    background-color:#DDFFDD;
+    border:1px solid #99FF99;
+    color:#333;
+}
+
 .widget img {
     margin-top:0.5em;
     max-width: 49em;

@@ -76,6 +76,11 @@ $(document).ready(function(){
     }
 
     $('input[name="form.tags"]').each(setup_tag_widget);
+
+    $('#link-checker').click(function (event) {
+        check_links();
+        event.preventDefault();
+    });
 });
 
 function tree_check_move_not_outside_root(move) {
@@ -390,3 +395,38 @@ function toggle_tag() {
     }
     widget.attr('value', new_tags.join(' '));
 }
+
+function check_links() {
+  function check_link(a, cb) {
+    $.ajax({
+      timeout: 2000,
+      statusCode: {404: function() {
+        cb(true);
+      }},
+      type: 'HEAD',
+      url: a.href
+    }).success(function () {
+      cb(false);
+    });
+  }
+
+  function check_done(results) {
+    var count = results.length, msg;
+    $(results).addClass('link-broken');
+    var msgs = $('<ul class="messages section">').prependTo('#content');
+    if (count > 0) {
+      msg  = $('<li class="warning">').hide().html('Found <b>' + count + '</b> broken links! :(').appendTo(msgs);
+    } else {
+      msg  = $('<li class="success">').hide().html('Great! No broken links found.').appendTo(msgs);
+    }
+    msg.slideDown(300).delay(6000).slideUp(1000);
+  }
+
+  var links = $('a', tinyMCE.activeEditor.getBody())
+    .removeClass('link-broken')
+    .not('[href^="javascript"],[href^="http"]')
+    .toArray();
+
+  async.filter(links, check_link, check_done);
+}
+
