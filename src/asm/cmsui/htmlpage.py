@@ -23,7 +23,9 @@ class Edit(asm.cmsui.form.EditionEditForm):
     grok.require('asm.cms.EditContent')
 
     main_fields = grok.AutoFields(asm.cms.htmlpage.HTMLPage).select(
-        'title', 'content')
+        'title', 'description', 'content')
+    main_fields['description'].custom_widget = (
+        asm.cmsui.tinymce.TinyMCEWidgetSmall)
     main_fields['content'].custom_widget = asm.cmsui.tinymce.TinyMCEWidget
 
     def post_process(self):
