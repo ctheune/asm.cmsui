@@ -374,3 +374,7 @@ span.rename-label {
     width: 16px;
     background: transparent url(/@@/asm.cmsui/icons/pencil.png) center center no-repeat !important;
 }
+
+.link-broken {
+    text-decoration: line-through;
+}
