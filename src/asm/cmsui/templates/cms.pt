@@ -8,6 +8,9 @@
         <script type="text/javascript" tal:attributes="src resource/jquery-ui-1.8.6.custom.min.js"></script>
         <link rel="stylesheet" type="text/css" tal:attributes="href resource/jquery-ui-1.8.6.custom.css" />
 
+		<!-- Async (because it rocks) -->
+		<script type="text/javascript" tal:attributes="src resource/async.min.js"></script>
+		
         <!-- jsTree inclusions -->
         <script type="text/javascript" tal:attributes="src resource/jstree/jquery.jstree.js"> </script>
 
