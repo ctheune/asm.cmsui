@@ -458,13 +458,13 @@ function check_links() {
         $(results).addClass('link-broken');
 
         if (broken_link_count > 0) {
-            var broken_link_message = 'Found <strong>' + broken_link_count + '</strong> broken links!';
+            var broken_link_message = 'Found <strong>' + broken_link_count + '</strong> broken internal links!';
             if (broken_link_count == 1) {
-                broken_link_message = 'Found <strong>' + broken_link_count + '</strong> broken link!';
+                broken_link_message = 'Found <strong>' + broken_link_count + '</strong> broken internal link!';
             }
             $('<li class="warning">').html(broken_link_message).appendTo(messages);
         } else {
-            $('<li class="success">').html('No broken links found.').appendTo(messages);
+            $('<li class="success">').html('No broken internal links found.').appendTo(messages);
         }
         messages.delay(6000).slideUp(1000);
     }
