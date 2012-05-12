@@ -397,36 +397,71 @@ function toggle_tag() {
 }
 
 function check_links() {
-  function check_link(a, cb) {
-    $.ajax({
-      timeout: 2000,
-      statusCode: {404: function() {
-        cb(true);
-      }},
-      type: 'HEAD',
-      url: a.href
-    }).success(function () {
-      cb(false);
-    });
-  }
-
-  function check_done(results) {
-    var count = results.length, msg;
-    $(results).addClass('link-broken');
-    var msgs = $('<ul class="messages section">').prependTo('#content');
-    if (count > 0) {
-      msg  = $('<li class="warning">').hide().html('Found <b>' + count + '</b> broken links! :(').appendTo(msgs);
-    } else {
-      msg  = $('<li class="success">').hide().html('Great! No broken links found.').appendTo(msgs);
+    function check_link(a, cb) {
+        $.ajax({
+            timeout: 2000,
+            statusCode: {404: function() {
+                cb(true);
+            }},
+            type: 'HEAD',
+            url: a.href
+        }).success(function () {
+            cb(false);
+        });
     }
-    msg.slideDown(300).delay(6000).slideUp(1000);
-  }
 
-  var links = $('a', tinyMCE.activeEditor.getBody())
-    .removeClass('link-broken')
-    .not('[href^="javascript"],[href^="http"]')
-    .toArray();
+    var messages = $(".linkcheck-messages");
+    if (messages.length != 0) {
+        messages.remove();
+    }
+    messages = $('<ul class="linkcheck-messages messages section">').prependTo('#content');
 
-  async.filter(links, check_link, check_done);
+    var links = $('a', tinyMCE.activeEditor.getBody())
+        .removeClass('link-broken')
+        .not('[href^="javascript"],[href^="http"]')
+        .toArray();
+
+    var not_checked_links_count = $('a', tinyMCE.activeEditor.getBody())
+        .filter('[href^="javascript"],[href^="http"]').length;
+
+    if (not_checked_links_count > 0) {
+        var external_check_message = 'There are ' + not_checked_links_count + " external links that were not checked.";
+        if (not_checked_links_count == 1) {
+            external_check_message = 'There is ' + not_checked_links_count + " external link that was not checked.";
+        }
+        $('<li>').html(external_check_message).appendTo(messages);
+    }
+
+    if (links.length == 0) {
+        $('<li class="progress-state">').html("There are no internal links on this page to check for.").appendTo(messages);
+        messages.delay(6000).slideUp(1000);
+    } else {
+        var link_count_message = "Checking for " + links.length + " internal links if they are broken.";
+        if (links.length == 1) {
+            link_count_message = "Checking for 1 internal link if it is broken.";
+        }
+        $('<li class="progress-state">').html(link_count_message).appendTo(messages);
+    }
+
+    if (links.length == 0) {
+        return;
+    }
+
+    function check_done(results) {
+        var broken_link_count = results.length, msg;
+        $(results).addClass('link-broken');
+
+        if (broken_link_count > 0) {
+            var broken_link_message = 'Found <strong>' + broken_link_count + '</strong> broken links!';
+            if (broken_link_count == 1) {
+                broken_link_message = 'Found <strong>' + broken_link_count + '</strong> broken link!';
+            }
+            $('<li class="warning">').html(broken_link_message).appendTo(messages);
+        } else {
+            $('<li class="success">').html('No broken links found.').appendTo(messages);
+        }
+        messages.delay(6000).slideUp(1000);
+    }
+
+    async.filter(links, check_link, check_done);
 }
-
