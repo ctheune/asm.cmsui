@@ -74,6 +74,8 @@ $(document).ready(function(){
     if (window.location.hash == "#show-navigation") {
         show_navigation();
     }
+
+    $('input[name="form.tags"]').each(setup_tag_widget);
 });
 
 function tree_check_move_not_outside_root(move) {
@@ -355,3 +357,36 @@ function show_preview() {
     w = window.open(application_view('preview-window'));
     return false;
 };
+
+
+function setup_tag_widget() {
+    var widget = $(this);
+    $.getJSON(window.root+'/@@tags.json',
+        function(tags) {
+            $.each(tags, function(i, tag) {
+                var tag_span = $('<span class="tag">'+tag+'</span>');
+                tag_span.click(toggle_tag)
+                widget.before(tag_span);
+                widget.before(' ');
+        });
+    });
+}
+
+function toggle_tag() {
+    var tag = $(this).text();
+    var widget = $('input', $(this).parent());
+    var tags = widget.attr('value').split(' ');
+    var new_tags = Array();
+    var found = false;
+    $.each(tags, function(i, candidate) {
+        if (candidate == tag) {
+            found = true;
+        } else {
+            new_tags.push(candidate);
+        }
+    });
+    if (!found) {
+        new_tags.push(tag);
+    }
+    widget.attr('value', new_tags.join(' '));
+}

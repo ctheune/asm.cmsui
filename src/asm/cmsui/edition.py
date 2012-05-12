@@ -104,3 +104,6 @@ class Delete(grok.View):
 class ImagePicker(grok.View):
     grok.context(asm.cms.edition.Edition)
     grok.name('image-picker')
+
+
+
