@@ -416,12 +416,18 @@ function check_links() {
     }
     messages = $('<ul class="linkcheck-messages messages section">').prependTo('#content');
 
-    var links = $('a', tinyMCE.activeEditor.getBody())
+    var contentBodies = [];
+    // Assume that all TinyMCE editors are related to actual page content.
+    for (edId in tinyMCE.editors) {
+        contentBodies.push(tinyMCE.editors[edId].getBody());
+    }
+
+    var links = $('a', $(contentBodies))
         .removeClass('link-broken')
         .not('[href^="javascript"],[href^="http"]')
         .toArray();
 
-    var not_checked_links_count = $('a', tinyMCE.activeEditor.getBody())
+    var not_checked_links_count = $('a', $(contentBodies))
         .filter('[href^="javascript"],[href^="http"]').length;
 
     if (not_checked_links_count > 0) {
