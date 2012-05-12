@@ -399,16 +399,17 @@ function toggle_tag() {
 function check_links() {
     function check_link(a, cb) {
         $.ajax({
-            timeout: 2000,
-            statusCode: {404: function() {
-                cb(true);
-            }},
+            timeout: 3000,
             type: 'HEAD',
             url: a.href
-        }).success(function () {
+        }).success(function() {
             cb(false);
+        }).fail(function() {
+            // This might catch too much. Besides 404 and 500 pages this
+            // will also catch timeouts.
+            cb(true);
         });
-    }
+    };
 
     var messages = $(".linkcheck-messages");
     if (messages.length != 0) {
