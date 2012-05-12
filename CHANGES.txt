@@ -5,7 +5,9 @@ Changes
 ===================
 
 - Make it possible to hide assets from search by using hide-search tag.
-
+- Add tool to check for broken links.
+- Provide a list of used tags to make it simpler to re-use pre-defined
+  tags and avoid mistyping
 
 0.1.17 (2011-11-20)
 ===================
