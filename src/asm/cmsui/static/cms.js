@@ -463,7 +463,6 @@ function check_links() {
 
     if (links.length == 0) {
         $('<li class="progress-state">').html("There are no internal links to check on this page.").appendTo(messages);
-        messages.delay(7000).slideUp(1000);
     } else {
         var link_count_message = "Checking for " + links.length + " internal links if they are broken.";
         if (links.length == 1) {
@@ -500,7 +499,6 @@ function check_links() {
         } else {
             $('<li class="success">').html('No broken internal anchors found.').appendTo(messages);
         }
-        messages.delay(10000).slideUp(1000);
     }
 
     async.parallel([
