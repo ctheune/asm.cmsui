@@ -78,8 +78,8 @@ $(document).ready(function(){
     $('input[name="form.tags"]').each(setup_tag_widget);
 
     $('#link-checker').click(function (event) {
-        check_links();
         event.preventDefault();
+        check_links();
     });
 });
 
@@ -418,12 +418,16 @@ function check_links() {
             broken_count_callback(false);
         });
     };
+    function check_anchor(a, broken_anchor_callback) {
+        var name = $(a).attr('href').substring(1);
+        broken_anchor_callback($('[name="' + name + '"]', $(contentBodies)).length == 0);
+    }
 
     if($('#link-checker').hasClass('disabled')) {
       return;
-    } 
+    }
     $('#link-checker').addClass('disabled');
-    
+
     var messages = $(".linkcheck-messages").remove();
     messages = $('<ul class="linkcheck-messages messages section">').prependTo('#content');
 
@@ -438,9 +442,7 @@ function check_links() {
         .not('[href^="http"],[href^="#"]')
         .toArray();
 
-    var not_checked_external_links_count = $('a', $(contentBodies))
-        .filter('[href^="http"]').length;
-
+    var not_checked_external_links_count = $('a[href^="http"]', $(contentBodies)).length;
     if (not_checked_external_links_count > 0) {
         var external_check_message = 'There are ' + not_checked_external_links_count + " external links that can't be checked.";
         if (not_checked_external_links_count == 1) {
@@ -449,16 +451,15 @@ function check_links() {
         $('<li>').html(external_check_message).appendTo(messages);
     }
 
-    var not_checked_anchor_links_count = $('a', $(contentBodies))
-        .filter('[href^="#"]').length;
+    var anchors = $('a[href^="#"]', $(contentBodies)).toArray();
+        /*
     if (not_checked_anchor_links_count > 0) {
         var anchor_check_message = 'There are ' + not_checked_anchor_links_count + " current page anchor links that were not checked.";
         if (not_checked_anchor_links_count == 1) {
             anchor_check_message = "There is 1 current page anchor link that was not checked.";
         }
         $('<li>').html(anchor_check_message).appendTo(messages);
-
-    }
+    }*/
 
     if (links.length == 0) {
         $('<li class="progress-state">').html("There are no internal links to check on this page.").appendTo(messages);
@@ -475,22 +476,43 @@ function check_links() {
         return;
     }
 
-    function check_done(results) {
+    function check_done(err, results) {
         $('#link-checker').removeClass('disabled');
-        var broken_link_count = results.length, msg;
-        $(results).addClass('link-broken');
+        var broken_link_count = $(results[0]).addClass('link-broken').length;
+        var broken_anchor_count = $(results[1]).addClass('link-broken').length;
 
         if (broken_link_count > 0) {
             var broken_link_message = 'Found <strong>' + broken_link_count + '</strong> broken internal links!';
             if (broken_link_count == 1) {
-                broken_link_message = 'Found <strong>' + broken_link_count + '</strong> broken internal link!';
+                broken_link_message = 'Found <strong>1</strong> broken internal link!';
             }
             $('<li class="warning">').html(broken_link_message).appendTo(messages);
         } else {
             $('<li class="success">').html('No broken internal links found.').appendTo(messages);
         }
-        messages.delay(6000).slideUp(1000);
+
+        if (broken_anchor_count > 0) {
+            var broken_anchor_message = 'Found <strong>' + broken_anchor_count + '</strong> broken internal anchors!';
+            if (broken_anchor_count == 1) {
+                broken_anchor_message = 'Found <strong>1</strong> broken internal anchor!';
+            }
+            $('<li class="warning">').html(broken_anchor_message).appendTo(messages);
+        } else {
+            $('<li class="success">').html('No broken internal anchors found.').appendTo(messages);
+        }
+        messages.delay(10000).slideUp(1000);
     }
 
-    async.filter(links, check_link, check_done);
+    async.parallel([
+        // Check internal links
+        function (cb) {
+            async.filter(links, check_link, function (broken_links) { cb(null, broken_links); });
+        },
+        // Check internal anchors
+        function (cb) {
+            async.filter(anchors, check_anchor, function (broken_anchors) { cb(null, broken_anchors); });
+        }
+    ], check_done);
+
+    //async.filter(links, check_link, check_done);
 }
