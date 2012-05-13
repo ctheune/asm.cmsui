@@ -303,6 +303,11 @@ span.discreet {
     border:1px solid #aaa;
 }
 
+.button.disabled {
+	background-image:none;
+	color:#aaa;
+}
+
 #page ul.messages.section {
     padding:0;
     margin:0;

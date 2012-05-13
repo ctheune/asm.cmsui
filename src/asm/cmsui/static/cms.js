@@ -399,6 +399,7 @@ function toggle_tag() {
 function check_links() {
     function check_link(a, broken_count_callback) {
         $.ajax({
+            cache: false,
             timeout: 3000,
             statusCode: {
                 404: function() {
@@ -412,16 +413,18 @@ function check_links() {
         }).success(function() {
             broken_count_callback(false);
         }).fail(function() {
-            // Other fail cases, like anchor links, will result in this call
+            // Other fail cases will result in this call
             // Don't mark them broken.
             broken_count_callback(false);
         });
     };
 
-    var messages = $(".linkcheck-messages");
-    if (messages.length != 0) {
-        messages.remove();
-    }
+    if($('#link-checker').hasClass('disabled')) {
+      return;
+    } 
+    $('#link-checker').addClass('disabled');
+    
+    var messages = $(".linkcheck-messages").remove();
     messages = $('<ul class="linkcheck-messages messages section">').prependTo('#content');
 
     var contentBodies = [];
@@ -439,12 +442,11 @@ function check_links() {
         .filter('[href^="http"]').length;
 
     if (not_checked_external_links_count > 0) {
-        var external_check_message = 'There are ' + not_checked_external_links_count + " external links that were not checked.";
+        var external_check_message = 'There are ' + not_checked_external_links_count + " external links that can't be checked.";
         if (not_checked_external_links_count == 1) {
-            external_check_message = 'There is ' + not_checked_external_links_count + " external link that was not checked.";
+            external_check_message = "There is 1 external link that couldn't be checked.";
         }
         $('<li>').html(external_check_message).appendTo(messages);
-
     }
 
     var not_checked_anchor_links_count = $('a', $(contentBodies))
@@ -452,14 +454,14 @@ function check_links() {
     if (not_checked_anchor_links_count > 0) {
         var anchor_check_message = 'There are ' + not_checked_anchor_links_count + " current page anchor links that were not checked.";
         if (not_checked_anchor_links_count == 1) {
-            anchor_check_message = 'There is ' + not_checked_anchor_links_count + " current page anchor link that was not checked.";
+            anchor_check_message = "There is 1 current page anchor link that was not checked.";
         }
         $('<li>').html(anchor_check_message).appendTo(messages);
 
     }
 
     if (links.length == 0) {
-        $('<li class="progress-state">').html("There are no internal links on this page to check for.").appendTo(messages);
+        $('<li class="progress-state">').html("There are no internal links to check on this page.").appendTo(messages);
         messages.delay(7000).slideUp(1000);
     } else {
         var link_count_message = "Checking for " + links.length + " internal links if they are broken.";
@@ -474,6 +476,7 @@ function check_links() {
     }
 
     function check_done(results) {
+        $('#link-checker').removeClass('disabled');
         var broken_link_count = results.length, msg;
         $(results).addClass('link-broken');
 
