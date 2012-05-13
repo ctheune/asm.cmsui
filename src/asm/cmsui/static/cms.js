@@ -472,6 +472,7 @@ function check_links() {
     }
 
     if (links.length == 0) {
+        $('#link-checker').removeClass('disabled');
         return;
     }
 
