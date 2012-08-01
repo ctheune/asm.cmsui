@@ -1,8 +1,6 @@
-# Copyright (c) 2010 gocept gmbh & co. kg
-# See also LICENSE.txt
-
 import grok
 import datetime
+import whenIO
 
 
 class DateFormat(grok.View):
@@ -13,6 +11,10 @@ class DateFormat(grok.View):
     def render(self):
         # XXX L10N or simple 'XXX time ago'
         return self.context.strftime('%d.%m.%Y %H:%M')
+
+    def when(self):
+        w = whenIO.WhenIO()
+        return w.format(self.context)
 
 
 class NoneFormat(grok.View):

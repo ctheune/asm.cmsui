@@ -20,6 +20,12 @@ class PageHeader(grok.ViewletManager):
     grok.name('pageheader')
 
 
+class HeaderActions(grok.ViewletManager):
+
+    grok.name('header-actions')
+    grok.context(zope.interface.Interface)
+
+
 class MainPageActions(grok.ViewletManager):
 
     grok.name('main-page-actions')
