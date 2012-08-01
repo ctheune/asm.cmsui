@@ -7,7 +7,7 @@ $(document).ready(function(){
             toggle_navigation();
         }});
 
-    $(".toggle-navigation").click(function() {toggle_navigation();});
+    $(".toggle-navigation").click(function() {toggle_navigation(); return false;});
 
     $("input.clear-first-focus").one('click', clear_input);
 
