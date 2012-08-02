@@ -69,6 +69,13 @@ $(document).ready(function(){
 
     $('#delete-page').click(delete_page);
 
+    $('#upload-files').click(upload_files);
+    $('#fileupload').dialog({
+      autoOpen: false,
+      modal: true,
+      width: 600,
+      beforeClose: reloadNavigationTree});
+
     $('.expandable .error').each(expand_section);
 
     if (window.location.hash == "#show-navigation") {
@@ -81,6 +88,7 @@ $(document).ready(function(){
         event.preventDefault();
         check_links();
     });
+
 });
 
 function tree_check_move_not_outside_root(move) {
@@ -247,6 +255,19 @@ function arrays_intersect(first, second) {
     }
     return false;
 }
+
+function upload_files() {
+  var t = $.jstree._reference('#navigation-tree');
+  $('#fileupload .uploader').pluploadQueue({
+      runtimes : 'html5',
+      url: node_view(t.get_selected(), 'upload'),
+      max_file_size : '10mb',
+      chunk_size : '1mb',
+      unique_names : false,
+  });
+  $('#fileupload').dialog('open');
+}
+
 
 function delete_page() {
     var tree = $.jstree._reference('#navigation-tree');
@@ -513,5 +534,9 @@ function check_links() {
         }
     ], check_done);
 
-    //async.filter(links, check_link, check_done);
+}
+
+function reloadNavigationTree() {
+    var tree = $.jstree._reference('#navigation-tree');
+    tree.refresh();
 }
