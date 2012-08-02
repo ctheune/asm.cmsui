@@ -4,15 +4,22 @@
         <title tal:content="context/title|nothing"></title>
 
         <!-- jQuery inclusions -->
-		<script type="text/javascript" tal:attributes="src resource/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" tal:attributes="src resource/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" tal:attributes="src resource/jquery-ui-1.8.6.custom.min.js"></script>
         <link rel="stylesheet" type="text/css" tal:attributes="href resource/jquery-ui-1.8.6.custom.css" />
 
-		<!-- Async (because it rocks) -->
-		<script type="text/javascript" tal:attributes="src resource/async.min.js"></script>
-		
+        <!-- Async (because it rocks) -->
+        <script type="text/javascript" tal:attributes="src resource/async.min.js"></script>
+
         <!-- jsTree inclusions -->
         <script type="text/javascript" tal:attributes="src resource/jstree/jquery.jstree.js"> </script>
+
+        <!-- fileupload inclusions -->
+        <link rel="stylesheet" type="text/css"
+            tal:attributes="href resource/fileupload/jquery.plupload.queue/css/jquery.plupload.queue.css" />
+        <script type="text/javascript" tal:attributes="src resource/fileupload/plupload.full.js"></script>
+        <script type="text/javascript" tal:attributes="src resource/fileupload/jquery.plupload.queue/jquery.plupload.queue.js"></script>
+
 
         <!-- CMS-specific inclusions -->
         <script type="text/javascript" tal:attributes="src context/@@layouthelper/static/cms.js"></script>
@@ -87,6 +94,7 @@
                 <h3>Tools</h3>
                 <ul>
                   <li><button class="button" id="delete-page" title="Deletes selected page(s).">Delete page(s)</button></li>
+                  <li><button class="button" id="upload-files" title="Upload files">Upload files</button></li>
                   <tal:block replace="structure provider:navigation-tool-actions"/>
                 </ul>
                 <div class="opener">
@@ -102,6 +110,12 @@
           <div id="confirm-deletion" title="Delete page?">
             <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>The selected pages will be permanently deleted and cannot be recovered. Are you sure?</p>
           </div>
+        </div>
+
+        <div style="display:none" id="fileupload">
+          <form>
+            <div class="uploader">Your browser does not support the upload feature.</div>
+          </form>
         </div>
 
     </body>

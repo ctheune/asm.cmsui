@@ -1,6 +1,4 @@
-# Copyright (c) 2010 gocept gmbh & co. kg#
-# See also LICENSE.txt
-
+import ZODB.blob
 import asm.cms
 import asm.cms.interfaces
 import asm.cms.page
@@ -8,9 +6,10 @@ import asm.cmsui.base
 import asm.cmsui.form
 import asm.cmsui.interfaces
 import grok
-import simplejson
 import megrok.pagelet
+import simplejson
 import zope.component
+
 
 class Actions(grok.Viewlet):
     """Page-related UI actions to perform on editions."""
@@ -298,3 +297,21 @@ class Rename(grok.View):
              'title': edition.title,
              'open_page': self.url(self.open_edition, "edit")
              })
+
+
+class Upload(grok.View):
+
+    grok.context(asm.cms.interfaces.IPage)
+    grok.require('asm.cms.EditContent')
+
+    def update(self, name, file):
+        page = asm.cms.page.Page("asset")
+        name = asm.cms.utils.normalize_name(name)
+        self.context[name] = page
+        edition = page.editions.next()
+        edition.title = name
+        edition.content = ZODB.blob.Blob()
+        ZODB.utils.cp(file, edition.content.open('w'))
+
+    def render(self):
+        pass
